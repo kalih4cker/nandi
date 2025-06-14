@@ -88,14 +88,14 @@ gau "$domain" --threads 5 --o "$result_dir/gau/output.txt"
 
 echo "[→] Running paramspider..."
 if command -v paramspider &>/dev/null; then
-    paramspider -d "$domain" --quiet > "$result_dir/paramspider/output.txt"
+    paramspider -d "$domain"  > "$result_dir/paramspider/output.txt"
 else
     echo "[!] paramspider failed to run. Skipping..."
 fi
 
 #--------------------[ Merge & Deduplicate ]--------------------#
 echo "[→] Merging and deduplicating..."
-cat "$result_dir"/gau/output.txt "$result_dir"/paramspider/output.txt 2>/dev/null | sort -u > "$result_dir/final/unique_params.txt"
+cat "$result_dir"/gau/output.txt "$result_dir"/paramspider/output.txt 2>/dev/null | sort -u > "$result_dir/final/params.txt"
 
 #--------------------[ Done ]--------------------#
-echo -e "\n[✓] Done for $domain → $result_dir/final/unique_params.txt"
+echo -e "\n[✓] Done for $domain → $result_dir/final/params.txt"
